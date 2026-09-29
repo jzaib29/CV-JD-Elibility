@@ -3,9 +3,39 @@ import json
 from crewai import Agent
 from pydantic import ValidationError
 from applywise.llm import GroqLLM, ProviderError
-from applywise.models import Analysis, EditPlan
+from applywise.models import Analysis, EditPlan, ReferencedAnalysis, ReferencedEditPlan
 from applywise.prompts import ANALYST, EDITOR
-from applywise.validation import OutputError, validate_analysis, validate_edits
+from applywise.validation import OutputError, validate_analysis, validate_edits, sources
+
+
+def resolve_references(result, source_map, output_type):
+    """Copy evidence from supplied sources, never model-authored quotations."""
+    data = result.model_dump()
+    key = "requirements" if output_type is Analysis else "edits"
+    for index, item in enumerate(data[key], 1):
+        resolved = []
+        seen = set()
+        for evidence in item["evidence"]:
+            sid = evidence["source_id"]
+            if sid not in source_map:
+                raise OutputError(
+                    f"{key.capitalize()} item {index} cited an unknown source ID. "
+                    "No unverified result was applied."
+                )
+            if sid not in seen:
+                resolved.append({"source_id": sid, "quote": source_map[sid]})
+                seen.add(sid)
+        item["evidence"] = resolved
+    return output_type.model_validate(data)
+
+
+def references_only(analysis):
+    if analysis is None:
+        return None
+    data = analysis.model_dump()
+    for requirement in data["requirements"]:
+        requirement["evidence"] = [{"source_id": e["source_id"]} for e in requirement["evidence"]]
+    return data
 
 
 class ResumeService:
@@ -47,9 +77,10 @@ class ResumeService:
                            {"resume": [b.model_dump() for b in cv.blocks],
                             "job_description": jd.text,
                             "confirmed_answers": [a.model_dump() for a in answers],
-                            "previous_analysis": previous.model_dump() if previous else None,
+                            "previous_analysis": references_only(previous),
                             "allow_questions": bool(allow_questions and previous is None)},
-                           Analysis, "Clarification" if previous else "Analysis")
+                           ReferencedAnalysis, "Clarification" if previous else "Analysis")
+        result = resolve_references(result, sources(cv, answers), Analysis)
         if not allow_questions:
             result.questions = []
         return validate_analysis(result, cv, jd, answers, previous)
@@ -64,7 +95,10 @@ class ResumeService:
                            {"target_blocks": [b.model_dump() for b in cv.blocks if b.id in targets],
                             "candidate_evidence": [b.model_dump() for b in selected],
                             "confirmed_answers": [a.model_dump() for a in answers],
-                            "requirements": [r.model_dump() for r in analysis.requirements],
+                            "requirements": references_only(analysis)["requirements"],
                             "restructure": analysis.restructure,
-                            "structure_reason": analysis.structure_reason}, EditPlan, "Editing")
+                            "structure_reason": analysis.structure_reason}, ReferencedEditPlan, "Editing")
+        selected_sources = {**{b.id: b.text for b in selected},
+                            **{a.id: a.text for a in answers}}
+        result = resolve_references(result, selected_sources, EditPlan)
         return validate_edits(result, cv, answers, analysis)
