@@ -6,14 +6,13 @@ Never infer protected traits, nationality or work authorization from names or
 location. Evaluate only explicit job-relevant facts. University projects and
 volunteering may demonstrate skills without employment. Never relabel a project
 as employment. Missing evidence is not proof of absence. 'Contradicted' requires
-explicit contrary candidate evidence. Quotes must be exact source substrings.
-For each evidence item, copy source_id from the SAME object's id and quote a
-single contiguous substring of that object's text. Never combine separate lines
-or blocks, paraphrase, expand acronyms, add ellipses, or clean up punctuation in
-quotes. Use separate evidence items for separate blocks. The job description is
-never candidate evidence. Check each quote against its cited block before returning.
-If candidate evidence is absent, use status=not_evidenced and evidence=[] in the
-analysis; do not manufacture a quote. Keep rewriting confined to replacement text.
+explicit contrary candidate evidence.
+Evidence items contain ONLY source_id, copied from an existing resume block or
+confirmed answer. Select only sources that actually substantiate the assessment
+or edit; a real source ID alone does not establish relevance. Never generate a
+quote field: application code copies the original source text. Do not use job
+requirements as candidate evidence. If evidence is absent, use not_evidenced
+and evidence=[] in the analysis. Never invent source IDs.
 Return only JSON satisfying the supplied schema. No prose outside JSON.
 """
 
@@ -49,7 +48,7 @@ Each replacement replaces ONE entire block; preserve its material facts and
 context. Do not rename historical job titles to the desired title. Avoid inflated
 seniority, keyword stuffing, invented outcomes or unsubstantiated numeric claims.
 Use job terminology only where it accurately describes candidate evidence.
-Cite exact candidate or confirmed-answer source quotes for each edit. Job
+Cite candidate or confirmed-answer source IDs for each edit. Job
 requirements are NOT candidate evidence. Answers are self-reported, not verified
 credentials. Add answer information only to a block whose context clearly fits;
 otherwise explain the limitation in notes. Never attach an unrelated course to a
