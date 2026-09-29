@@ -1,0 +1,8 @@
+# Verified compatible release set on 2026-09-29; use Python 3.12.
+-c constraints.txt
+crewai==1.15.22
+streamlit==1.64.0
+groq==1.7.0
+pydantic==2.12.5
+pypdf==6.19.0
+python-docx==1.2.0

@@ -1,0 +1,14 @@
+Sara Ahmed
+sara.ahmed@example.com | Lahore, Pakistan
+SUMMARY
+Computer science graduate interested in working with data and building useful tools.
+EDUCATION
+BS Computer Science, Example University, 2022–2026
+PROJECTS
+Built a university reporting system using Python and pandas to clean survey data and produce charts.
+Created a Flask application for a student society and maintained its code in Git.
+EXPERIENCE
+Volunteer, University Computing Society, 2024–2026
+Worked with a team to organize workshops and explain programming concepts to students.
+SKILLS
+Python, pandas, Flask, Git, Excel

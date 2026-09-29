@@ -1,0 +1,20 @@
+:root { --ink:#142f2c; --accent:#126c56; }
+.stApp { background:#f6f7f2; color:var(--ink); }
+.block-container { max-width:1160px; padding-top:2.3rem; padding-bottom:4rem; }
+[data-testid="stSidebar"] { background:#eaf0e7; border-right:1px solid #d8e2d5; }
+h1,h2,h3 { letter-spacing:-.035em; color:var(--ink); }
+.hero { padding:2.5rem 2.8rem; margin-bottom:1.6rem; background:linear-gradient(120deg,#e8f0e2,#f0f3e8 62%,#e4edde); border:1px solid #d5e1cf; border-radius:24px; overflow:hidden; }
+.eyebrow { color:#47664e; font-size:.71rem; letter-spacing:.17em; font-weight:750; margin-bottom:1.15rem; }
+.hero h1 { font-size:clamp(2rem,4.2vw,3.25rem); line-height:1.08; font-weight:700; margin:0 0 1.1rem; }
+.hero h1 span { color:#357452; }
+.hero p { font-size:1rem; line-height:1.65; max-width:650px; color:#496259; }
+.hero-tags { display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.5rem; }
+.hero-tags span { border:1px solid #c4d6bf; color:#355a42; padding:.35rem .7rem; border-radius:50px; font-size:.75rem; background:#ffffff80; }
+[data-testid="stMetric"] { background:white; border:1px solid #dce5d7; border-radius:18px; padding:1.1rem 1.25rem; }
+[data-testid="stMetricValue"] { color:#176348; font-weight:650; }
+.stButton button,.stDownloadButton button { border-radius:11px; min-height:2.7rem; font-weight:600; }
+.stTextArea textarea,.stTextInput input { border-radius:11px; }
+[data-testid="stExpander"] { background:#ffffffb0; border-radius:14px; }
+[data-testid="stAlert"] { border-radius:12px; }
+@media(max-width:640px) { .hero { padding:1.6rem 1.25rem; border-radius:18px; } .block-container { padding-top:1rem; } }
+@media(prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }

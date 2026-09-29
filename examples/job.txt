@@ -1,0 +1,9 @@
+Junior Data Analyst
+We are looking for a graduate to help our team clean data, prepare reports, and communicate findings.
+Requirements:
+- A bachelor's degree in computer science or a related discipline is required.
+- Python and pandas for data cleaning are required.
+- SQL querying skills are required.
+- Ability to communicate findings and work with a team is required.
+- Power BI experience is preferred.
+University projects and volunteering count as relevant experience. This is an entry-level role.
