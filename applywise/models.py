@@ -97,3 +97,24 @@ class Scorecard(Contract):
     eligibility: str
     recommendation: str
     reason: str
+
+
+# Provider contracts select references; application contracts retain source quotes.
+class SourceReference(Contract):
+    source_id: str
+
+
+class ReferencedRequirement(Requirement):
+    evidence: list[SourceReference]
+
+
+class ReferencedAnalysis(Analysis):
+    requirements: list[ReferencedRequirement] = Field(min_length=1, max_length=20)
+
+
+class ReferencedEdit(Edit):
+    evidence: list[SourceReference] = Field(min_length=1)
+
+
+class ReferencedEditPlan(EditPlan):
+    edits: list[ReferencedEdit] = Field(max_length=5)
