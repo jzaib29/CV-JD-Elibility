@@ -7,6 +7,13 @@ location. Evaluate only explicit job-relevant facts. University projects and
 volunteering may demonstrate skills without employment. Never relabel a project
 as employment. Missing evidence is not proof of absence. 'Contradicted' requires
 explicit contrary candidate evidence. Quotes must be exact source substrings.
+For each evidence item, copy source_id from the SAME object's id and quote a
+single contiguous substring of that object's text. Never combine separate lines
+or blocks, paraphrase, expand acronyms, add ellipses, or clean up punctuation in
+quotes. Use separate evidence items for separate blocks. The job description is
+never candidate evidence. Check each quote against its cited block before returning.
+If candidate evidence is absent, use status=not_evidenced and evidence=[] in the
+analysis; do not manufacture a quote. Keep rewriting confined to replacement text.
 Return only JSON satisfying the supplied schema. No prose outside JSON.
 """
 
